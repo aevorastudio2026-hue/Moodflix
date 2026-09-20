@@ -1,0 +1,13 @@
+node_modules/
+.env
+.env.local
+*.log
+.DS_Store
+dev.db
+prisma/dev.db
+*.db
+*.sqlite
+coverage/
+.vercel
+dist/
+build/

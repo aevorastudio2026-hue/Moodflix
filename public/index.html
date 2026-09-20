@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MoodFlix - Personalized Movie Recommendations</title>
+  <meta name="description" content="MoodFlix - Personalized movie recommendation platform. An Aevora project.">
+  <meta name="theme-color" content="#0f0f12">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="container header-inner">
+        <a href="/" class="logo" aria-label="MoodFlix Home">
+          <span class="logo-icon">🎬</span>
+          <span class="logo-text">Mood<span class="logo-accent">Flix</span></span>
+        </a>
+
+        <div class="header-actions">
+          <form class="search-form" id="searchForm" role="search">
+            <label for="searchInput" class="sr-only">Search movies</label>
+            <input
+              type="search"
+              id="searchInput"
+              class="search-input"
+              placeholder="Search movies, genres, or descriptions..."
+              autocomplete="off"
+            >
+            <button type="submit" class="search-btn" aria-label="Search">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="M21 21l-4.35-4.35"></path>
+              </svg>
+            </button>
+          </form>
+
+          <div class="auth-buttons" id="authButtons">
+            <button class="btn btn-ghost" id="loginBtn">Sign In</button>
+            <button class="btn btn-primary" id="registerBtn">Sign Up</button>
+            <button class="btn btn-secondary" id="favoritesBtn" style="display: none;">❤️ My Favorites</button>
+            <button class="btn btn-secondary" id="preferencesBtn" style="display: none;">⚙️ Preferences</button>
+            <button class="btn btn-ghost" id="logoutBtn" style="display: none;">Sign Out</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="hero" aria-labelledby="mood-title">
+        <div class="container">
+          <h1 id="mood-title" class="hero-title">How Are You Feeling Today?</h1>
+          <p class="hero-subtitle">Pick your mood, discover movies tailored for you</p>
+
+          <div class="mood-selector" id="moodSelector" role="group" aria-label="Mood options">
+            <button class="mood-btn" data-mood="Heyecanlı" aria-pressed="false">
+              <span class="mood-icon">💥</span>
+              <span class="mood-label">Exciting</span>
+            </button>
+            <button class="mood-btn" data-mood="Eğlenceli" aria-pressed="false">
+              <span class="mood-icon">😂</span>
+              <span class="mood-label">Fun</span>
+            </button>
+            <button class="mood-btn" data-mood="Dramatik" aria-pressed="false">
+              <span class="mood-icon">🎭</span>
+              <span class="mood-label">Dramatic</span>
+            </button>
+            <button class="mood-btn" data-mood="Korkutucu" aria-pressed="false">
+              <span class="mood-icon">😱</span>
+              <span class="mood-label">Scary</span>
+            </button>
+            <button class="mood-btn" data-mood="Zihin Bükücü" aria-pressed="false">
+              <span class="mood-icon">🧠</span>
+              <span class="mood-label">Mind-Bending</span>
+            </button>
+            <button class="mood-btn" data-mood="İlham Verici" aria-pressed="false">
+              <span class="mood-icon">✨</span>
+              <span class="mood-label">Inspiring</span>
+            </button>
+            <button class="mood-btn" data-mood="Yoğun" aria-pressed="false">
+              <span class="mood-icon">🔥</span>
+              <span class="mood-label">Intense</span>
+            </button>
+            <button class="mood-btn" data-mood="Büyüleyici" aria-pressed="false">
+              <span class="mood-icon">🌌</span>
+              <span class="mood-label">Mesmerizing</span>
+            </button>
+            <button class="mood-btn" data-mood="Gerilimli" aria-pressed="false">
+              <span class="mood-icon">😰</span>
+              <span class="mood-label">Suspenseful</span>
+            </button>
+            <button class="mood-btn" data-mood="Epik" aria-pressed="false">
+              <span class="mood-icon">👑</span>
+              <span class="mood-label">Epic</span>
+            </button>
+            <button class="mood-btn" data-mood="Nostaljik" aria-pressed="false">
+              <span class="mood-icon">🕰️</span>
+              <span class="mood-label">Nostalgic</span>
+            </button>
+            <button class="mood-btn" data-mood="Kafa Boşaltmalık" aria-pressed="false">
+              <span class="mood-icon">🛋️</span>
+              <span class="mood-label">Easy Watch</span>
+            </button>
+            <button class="mood-btn" data-mood="Ağlatmalık" aria-pressed="false">
+              <span class="mood-icon">😢</span>
+              <span class="mood-label">Tearjerker</span>
+            </button>
+            <button class="mood-btn" data-mood="Motivasyon" aria-pressed="false">
+              <span class="mood-icon">💪</span>
+              <span class="mood-label">Motivational</span>
+            </button>
+            <button class="mood-btn" data-mood="Gece Yarısı" aria-pressed="false">
+              <span class="mood-icon">🌙</span>
+              <span class="mood-label">Late Night</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="personalized-section" id="personalizedSection" aria-labelledby="personalized-title" hidden>
+        <div class="container">
+          <div class="section-header">
+            <h2 id="personalized-title" class="section-title">🎯 Picked for You</h2>
+            <div class="section-meta" id="personalizedMeta"></div>
+          </div>
+
+          <div class="movies-grid" id="personalizedGrid" role="list">
+            <div class="loading" id="personalizedLoadingState" aria-live="polite">
+              <div class="spinner"></div>
+              <p>Loading recommendations...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="movies-section" aria-labelledby="movies-title">
+        <div class="container">
+          <div class="section-header">
+            <h2 id="movies-title" class="section-title">Movies</h2>
+            <div class="section-meta" id="sectionMeta"></div>
+          </div>
+
+          <div class="movies-grid" id="moviesGrid" role="list">
+            <div class="loading" id="loadingState" aria-live="polite">
+              <div class="spinner"></div>
+              <p>Loading movies...</p>
+            </div>
+          </div>
+
+          <div class="pagination" id="pagination" aria-label="Pagination"></div>
+        </div>
+      </section>
+    </main>
+
+    <section class="about-section" aria-labelledby="about-title">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-card">
+            <h2 id="about-title" class="about-title">About Aevora</h2>
+            <div class="about-content">
+              <p>Aevora is an independent project and development studio bringing together ideas, innovative technologies, and user-centered design.</              </p>
+              <p>Our goal is to create functional, modern digital experiences that make everyday life simpler through the thoughtful use of artificial intelligence and contemporary web technologies.
+              </p>
+              <p>Every website and application we build is shaped by a continuous journey of learning, experimentation, and improvement.
+              </p>
+              <p class="about-slogan">Aevora — Where ideas evolve.</p>
+            </div>
+          </div>
+
+          <div class="about-card contact-card">
+            <h2 id="contact-title" class="about-title">Contact Us</h2>
+            <div class="about-content">
+              <p>Have a question, idea, or feedback? We'd love to hear from you.</p>
+              <div class="contact-info">
+                <p class="contact-label">Email</p>
+                <a href="mailto:aevorastudio@gmail.com" class="contact-email">aevorastudio@gmail.com</a>
+                <a href="mailto:aevorastudio@gmail.com" class="btn btn-primary contact-btn">Email Us</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>MoodFlix &copy; 2026 - Personalized movie discovery</p>
+        <p class="footer-brand">MoodFlix — An Aevora project. Where ideas evolve.</p>
+        <p class="footer-tmdb">This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+      </div>
+    </footer>
+  </div>
+
+  <div class="modal-overlay" id="movieModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal">
+      <button type="button" class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+      <div class="modal-content" id="modalContent"></div>
+    </div>
+  </div>
+
+  <div class="auth-modal-overlay" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authModalTitle" hidden>
+    <div class="auth-modal">
+      <button type="button" class="modal-close" id="authModalClose" aria-label="Close">&times;</button>
+      <div class="auth-tabs" role="tablist">
+        <button class="auth-tab active" role="tab" aria-selected="true" data-tab="login">Sign In</button>
+        <button class="auth-tab" role="tab" aria-selected="false" data-tab="register">Sign Up</button>
+      </div>
+      <form class="auth-form" id="loginForm" aria-hidden="false">
+        <div class="form-group">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+        <p class="auth-error" id="loginError" aria-live="polite"></p>
+      </form>
+      <form class="auth-form" id="registerForm" aria-hidden="true">
+        <div class="form-group">
+          <label for="registerEmail">Email</label>
+          <input type="email" id="registerEmail" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="registerPassword">Password (min 6 characters)</label>
+          <input type="password" id="registerPassword" required minlength="6" autocomplete="new-password">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+        <p class="auth-error" id="registerError" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
+  <div class="preferences-modal-overlay" id="preferencesModal" role="dialog" aria-modal="true" aria-labelledby="preferencesModalTitle" hidden>
+    <div class="preferences-modal">
+      <button type="button" class="modal-close" id="preferencesModalClose" aria-label="Close">&times;</button>
+      <header class="preferences-header">
+        <h2 id="preferencesModalTitle">Your Movie Preferences</h2>
+        <p class="preferences-subtitle">Pick your favorite and least favorite genres, moods, and keywords</p>
+      </header>
+      <form class="preferences-form" id="preferencesForm">
+        <div class="preferences-tabs" role="tablist" aria-label="Preference categories">
+          <button type="button" class="preferences-tab active" role="tab" aria-selected="true" data-tab="genres">Genres</button>
+          <button type="button" class="preferences-tab" role="tab" aria-selected="false" data-tab="moods">Moods</button>
+          <button type="button" class="preferences-tab" role="tab" aria-selected="false" data-tab="keywords">Keywords</button>
+        </div>
+
+        <div class="preferences-panel" id="panel-genres" role="tabpanel" aria-labelledby="genres-tab">
+          <div class="preferences-section">
+            <h3 class="preferences-section-title">❤️ Favorite Genres</h3>
+            <div class="preferences-chips" id="likedGenresChips" role="group" aria-label="Favorite genres"></div>
+          </div>
+          <div class="preferences-section">
+            <h3 class="preferences-section-title">💔 Disliked Genres</h3>
+            <div class="preferences-chips" id="dislikedGenresChips" role="group" aria-label="Disliked genres"></div>
+          </div>
+        </div>
+
+        <div class="preferences-panel" id="panel-moods" role="tabpanel" aria-labelledby="moods-tab" hidden>
+          <div class="preferences-section">
+            <h3 class="preferences-section-title">✨ Favorite Moods</h3>
+            <div class="preferences-chips" id="likedMoodsChips" role="group" aria-label="Favorite moods"></div>
+          </div>
+          <div class="preferences-section">
+            <h3 class="preferences-section-title">😔 Disliked Moods</h3>
+            <div class="preferences-chips" id="dislikedMoodsChips" role="group" aria-label="Disliked moods"></div>
+          </div>
+        </div>
+
+        <div class="preferences-panel" id="panel-keywords" role="tabpanel" aria-labelledby="keywords-tab" hidden>
+          <div class="preferences-section">
+            <h3 class="preferences-section-title">🔑 Favorite Keywords</h3>
+            <div class="keyword-input-group">
+              <input type="text" id="likedKeywordInput" placeholder="e.g. time travel, mind bend..." aria-label="Add favorite keyword">
+              <button type="button" class="btn btn-primary btn-sm" id="addLikedKeywordBtn">Add</button>
+            </div>
+            <div class="preferences-chips" id="likedKeywordsChips" role="group" aria-label="Favorite keywords"></div>
+          </div>
+          <div class="preferences-section">
+            <h3 class="preferences-section-title">🚫 Disliked Keywords</h3>
+            <div class="keyword-input-group">
+              <input type="text" id="dislikedKeywordInput" placeholder="e.g. gore, jump scare..." aria-label="Add disliked keyword">
+              <button type="button" class="btn btn-primary btn-sm" id="addDislikedKeywordBtn">Add</button>
+            </div>
+            <div class="preferences-chips" id="dislikedKeywordsChips" role="group" aria-label="Disliked keywords"></div>
+          </div>
+        </div>
+
+        <div class="preferences-actions">
+          <button type="button" class="btn btn-ghost" id="cancelPreferencesBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+        <p class="preferences-error" id="preferencesError" aria-live="polite"></p>
+        <p class="preferences-success" id="preferencesSuccess" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>

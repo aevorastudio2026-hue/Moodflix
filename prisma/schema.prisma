@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id             String           @id @default(uuid())
+  email          String           @unique
+  password       String
+  createdAt      DateTime         @default(now())
+  favorites      Favorite[]
+  preference     UserPreference?
+}
+
+model Movie {
+  id          String     @id @default(uuid())
+  title       String     @unique
+  genre       String
+  mood        String
+  rating      Float
+  releaseYear Int
+  description String
+  posterUrl   String
+  favorites   Favorite[]
+}
+
+model Favorite {
+  id        String   @id @default(uuid())
+  userId    String
+  movieId   String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  movie     Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, movieId])
+}
+
+model UserPreference {
+  id                String   @id @default(uuid())
+  userId            String   @unique
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  likedGenres       String   @default("[]")
+  dislikedGenres    String   @default("[]")
+  likedMoods        String   @default("[]")
+  dislikedMoods     String   @default("[]")
+  likedKeywords     String   @default("[]")
+  dislikedKeywords  String   @default("[]")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}

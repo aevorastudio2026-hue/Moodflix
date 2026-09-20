@@ -1,0 +1,3 @@
+@echo off
+set TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4YTljZDJmNi0zMTNlLTQyMjktYTliMC01MjIxOTVmYjM0OWMiLCJlbWFpbCI6InRlc3R1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzg5ODI2NTk0LCJleHAiOjE3OTA0MzEzOTR9.NkSo7tddCv0yrpG_XpvesYzKhVpY8JFh_ipxDgVqqkU
+curl.exe -s http://localhost:3000/api/auth/me -H "Authorization: Bearer %TOKEN%"
