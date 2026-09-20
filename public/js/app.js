@@ -43,46 +43,46 @@ function getCacheKey(params) {
   return `movies?${sortedParams}`;
 }
 
-// Available genres and moods from movie data (backend values - keep Turkish for API)
+// Available genres and moods from movie data (backend values - English)
 const ALL_GENRES = ['Action', 'Animation', 'Comedy', 'Crime', 'Drama', 'Horror', 'Romance', 'Sci-Fi', 'Sport', 'Thriller'];
-const ALL_MOODS = ['Heyecanlı', 'Eğlenceli', 'Dramatik', 'Korkutucu', 'Zihin Bükücü', 'İlham Verici', 'Yoğun', 'Büyüleyici', 'Nostaljik', 'Kafa Boşaltmalık', 'Ağlatmalık', 'Motivasyon', 'Gece Yarısı', 'Gerilimli', 'Epik'];
+const ALL_MOODS = ['Exciting', 'Fun', 'Dramatic', 'Scary', 'Mind-bending', 'Inspiring', 'Intense', 'Captivating', 'Nostalgic', 'Chill', 'Tearjerker', 'Motivational', 'Late Night', 'Suspenseful', 'Epic'];
 
 // Mood display labels (UI labels - English for user)
 const MOOD_LABELS = {
-  'Heyecanlı': 'Action-Packed',
-  'Eğlenceli': 'Feel-Good',
-  'Dramatik': 'Dramatic',
-  'Korkutucu': 'Dark & Scary',
-  'Zihin Bükücü': 'Mind-Bending',
-  'İlham Verici': 'Inspiring',
-  'Yoğun': 'Intense',
-  'Büyüleyici': 'Mesmerizing',
-  'Nostaljik': 'Nostalgic',
-  'Kafa Boşaltmalık': 'Easy Watch',
-  'Ağlatmalık': 'Tearjerker',
-  'Motivasyon': 'Motivational',
-  'Gece Yarısı': 'Late Night',
-  'Gerilimli': 'Suspenseful',
-  'Epik': 'Epic'
+  'Exciting': 'Exciting',
+  'Fun': 'Fun',
+  'Dramatic': 'Dramatic',
+  'Scary': 'Scary',
+  'Mind-bending': 'Mind-bending',
+  'Inspiring': 'Inspiring',
+  'Intense': 'Intense',
+  'Captivating': 'Captivating',
+  'Nostalgic': 'Nostalgic',
+  'Chill': 'Chill',
+  'Tearjerker': 'Tearjerker',
+  'Motivational': 'Motivational',
+  'Late Night': 'Late Night',
+  'Suspenseful': 'Suspenseful',
+  'Epic': 'Epic'
 };
 
-// Turkish to English mood mapping for API calls (TMDB service uses English mood names)
-const TURKISH_TO_ENGLISH_MOOD = {
-  'Heyecanlı': 'Exciting',
-  'Eğlenceli': 'Fun',
-  'Dramatik': 'Dramatic',
-  'Korkutucu': 'Scary',
-  'Zihin Bükücü': 'Mind-Bending',
-  'İlham Verici': 'Inspiring',
-  'Yoğun': 'Intense',
-  'Büyüleyici': 'Mesmerizing',
-  'Nostaljik': 'Nostalgic',
-  'Kafa Boşaltmalık': 'Easy Watch',
-  'Ağlatmalık': 'Tearjerker',
-  'Motivasyon': 'Motivational',
-  'Gece Yarısı': 'Late Night',
-  'Gerilimli': 'Suspenseful',
-  'Epik': 'Epic'
+// English mood mapping for API calls (TMDB service uses English mood names)
+const ENGLISH_MOOD_MAP = {
+  'Exciting': 'Exciting',
+  'Fun': 'Fun',
+  'Dramatic': 'Dramatic',
+  'Scary': 'Scary',
+  'Mind-bending': 'Mind-Bending',
+  'Inspiring': 'Inspiring',
+  'Intense': 'Intense',
+  'Captivating': 'Mesmerizing',
+  'Nostalgic': 'Nostalgic',
+  'Chill': 'Easy Watch',
+  'Tearjerker': 'Tearjerker',
+  'Motivational': 'Motivational',
+  'Late Night': 'Late Night',
+  'Suspenseful': 'Suspenseful',
+  'Epic': 'Epic'
 };
 
 // Default fallback poster URL
@@ -95,7 +95,7 @@ const MOCK_MOVIES = [
     id: 'mock-1',
     title: 'The Dark Knight',
     genre: 'Action',
-    mood: 'Heyecanlı',
+    mood: 'Exciting',
     rating: 9.0,
     releaseYear: 2008,
     description: 'Batman faces the Joker in this epic crime thriller.',
@@ -105,7 +105,7 @@ const MOCK_MOVIES = [
     id: 'mock-2',
     title: 'Inception',
     genre: 'Sci-Fi',
-    mood: 'Zihin Bükücü',
+    mood: 'Mind-bending',
     rating: 8.8,
     releaseYear: 2010,
     description: 'A thief who enters dreams to steal secrets.',
@@ -115,7 +115,7 @@ const MOCK_MOVIES = [
     id: 'mock-3',
     title: 'The Shawshank Redemption',
     genre: 'Drama',
-    mood: 'İlham Verici',
+    mood: 'Inspiring',
     rating: 9.3,
     releaseYear: 1994,
     description: 'Two imprisoned men bond over years.',
@@ -125,7 +125,7 @@ const MOCK_MOVIES = [
     id: 'mock-4',
     title: 'The Grand Budapest Hotel',
     genre: 'Comedy',
-    mood: 'Eğlenceli',
+    mood: 'Fun',
     rating: 8.1,
     releaseYear: 2014,
     description: 'A legendary concierge and his lobby boy.',
@@ -135,7 +135,7 @@ const MOCK_MOVIES = [
     id: 'mock-5',
     title: 'Parasite',
     genre: 'Thriller',
-    mood: 'Gerilimli',
+    mood: 'Suspenseful',
     rating: 8.6,
     releaseYear: 2019,
     description: 'A poor family schemes to infiltrate a wealthy household.',
@@ -145,7 +145,7 @@ const MOCK_MOVIES = [
     id: 'mock-6',
     title: 'Interstellar',
     genre: 'Sci-Fi',
-    mood: 'Zihin Bükücü',
+    mood: 'Mind-bending',
     rating: 8.6,
     releaseYear: 2014,
     description: 'A team travels through a wormhole to save humanity.',
@@ -155,7 +155,7 @@ const MOCK_MOVIES = [
     id: 'mock-7',
     title: 'The Matrix',
     genre: 'Action',
-    mood: 'Heyecanlı',
+    mood: 'Exciting',
     rating: 8.7,
     releaseYear: 1999,
     description: 'A hacker discovers reality is a simulation.',
@@ -165,7 +165,7 @@ const MOCK_MOVIES = [
     id: 'mock-8',
     title: 'Spirited Away',
     genre: 'Animation',
-    mood: 'Büyüleyici',
+    mood: 'Captivating',
     rating: 8.6,
     releaseYear: 2001,
     description: 'A girl enters a spirit world to save her parents.',
@@ -612,8 +612,8 @@ async function loadMovies() {
   });
 
   if (currentMoods.length > 0) {
-    // Map Turkish mood names to English for API
-    const englishMoods = currentMoods.map(m => TURKISH_TO_ENGLISH_MOOD[m] || m);
+    // Map English mood names to API mood names
+    const englishMoods = currentMoods.map(m => ENGLISH_MOOD_MAP[m] || m);
     params.set('moods', englishMoods.join(','));
   }
   if (currentSearch) params.set('search', currentSearch);
@@ -888,8 +888,8 @@ async function loadMoviesAppend() {
   });
 
   if (currentMoods.length > 0) {
-    // Map Turkish mood names to English for API
-    const englishMoods = currentMoods.map(m => TURKISH_TO_ENGLISH_MOOD[m] || m);
+    // Map English mood names to API mood names
+    const englishMoods = currentMoods.map(m => ENGLISH_MOOD_MAP[m] || m);
     params.set('moods', englishMoods.join(','));
   }
   if (currentSearch) params.set('search', currentSearch);

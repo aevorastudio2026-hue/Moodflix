@@ -21,23 +21,23 @@ exports.getAllMovies = async (req, res) => {
     const pageNum = parseInt(page);
     const limitNum = parseInt(limit);
 
-    // Turkish to English mood mapping for TMDB service
-    const TURKISH_TO_ENGLISH_MOOD = {
-      'Heyecanlı': 'Exciting',
-      'Eğlenceli': 'Fun',
-      'Dramatik': 'Dramatic',
-      'Korkutucu': 'Scary',
-      'Zihin Bükücü': 'Mind-Bending',
-      'İlham Verici': 'Inspiring',
-      'Yoğun': 'Intense',
-      'Büyüleyici': 'Mesmerizing',
-      'Nostaljik': 'Nostalgic',
-      'Kafa Boşaltmalık': 'Easy Watch',
-      'Ağlatmalık': 'Tearjerker',
-      'Motivasyon': 'Motivational',
-      'Gece Yarısı': 'Late Night',
-      'Gerilimli': 'Suspenseful',
-      'Epik': 'Epic'
+    // English mood mapping for TMDB service
+    const ENGLISH_MOOD_MAP = {
+      'Exciting': 'Exciting',
+      'Fun': 'Fun',
+      'Dramatic': 'Dramatic',
+      'Scary': 'Scary',
+      'Mind-bending': 'Mind-Bending',
+      'Inspiring': 'Inspiring',
+      'Intense': 'Intense',
+      'Captivating': 'Mesmerizing',
+      'Nostalgic': 'Nostalgic',
+      'Chill': 'Easy Watch',
+      'Tearjerker': 'Tearjerker',
+      'Motivational': 'Motivational',
+      'Late Night': 'Late Night',
+      'Suspenseful': 'Suspenseful',
+      'Epic': 'Epic'
     };
 
     const { search, genre, mood, moods } = req.query;
@@ -59,8 +59,8 @@ exports.getAllMovies = async (req, res) => {
 
     if (req.query.mood || req.query.moods) {
       const moodList = req.query.moods ? req.query.moods.split(',').map(m => m.trim()) : [req.query.mood];
-      // Map Turkish mood names to English for TMDB service
-      const englishMood = moodList.map(m => TURKISH_TO_ENGLISH_MOOD[m] || m)[0];
+      // Map English mood names to TMDB service mood names
+      const englishMood = moodList.map(m => ENGLISH_MOOD_MAP[m] || m)[0];
       const moodResult = await tmdbService.getMoviesByMood(englishMood, req.query.page || 1);
       return res.json({
         success: true,
@@ -127,23 +127,23 @@ exports.getMovieById = async (req, res) => {
 
 exports.getRecommendedMovies = async (req, res) => {
   try {
-    // Turkish to English mood mapping for TMDB service
-    const TURKISH_TO_ENGLISH_MOOD = {
-      'Heyecanlı': 'Exciting',
-      'Eğlenceli': 'Fun',
-      'Dramatik': 'Dramatic',
-      'Korkutucu': 'Scary',
-      'Zihin Bükücü': 'Mind-Bending',
-      'İlham Verici': 'Inspiring',
-      'Yoğun': 'Intense',
-      'Büyüleyici': 'Mesmerizing',
-      'Nostaljik': 'Nostalgic',
-      'Kafa Boşaltmalık': 'Easy Watch',
-      'Ağlatmalık': 'Tearjerker',
-      'Motivasyon': 'Motivational',
-      'Gece Yarısı': 'Late Night',
-      'Gerilimli': 'Suspenseful',
-      'Epik': 'Epic'
+    // English mood mapping for TMDB service
+    const ENGLISH_MOOD_MAP = {
+      'Exciting': 'Exciting',
+      'Fun': 'Fun',
+      'Dramatic': 'Dramatic',
+      'Scary': 'Scary',
+      'Mind-bending': 'Mind-Bending',
+      'Inspiring': 'Inspiring',
+      'Intense': 'Intense',
+      'Captivating': 'Mesmerizing',
+      'Nostalgic': 'Nostalgic',
+      'Chill': 'Easy Watch',
+      'Tearjerker': 'Tearjerker',
+      'Motivational': 'Motivational',
+      'Late Night': 'Late Night',
+      'Suspenseful': 'Suspenseful',
+      'Epic': 'Epic'
     };
 
     const moodList = [];
@@ -155,8 +155,8 @@ exports.getRecommendedMovies = async (req, res) => {
     }
 
     if (moodList.length > 0) {
-      // Map Turkish mood names to English for TMDB service
-      const englishMood = moodList.map(m => TURKISH_TO_ENGLISH_MOOD[m] || m)[0];
+      // Map English mood names to TMDB service mood names
+      const englishMood = moodList.map(m => ENGLISH_MOOD_MAP[m] || m)[0];
       const result = await tmdbService.getMoviesByMood(englishMood, 1);
       return res.json({ success: true, data: result.movies });
     }
@@ -175,12 +175,12 @@ const MOOD_LABELS = {
   'Fun': 'Fun',
   'Dramatic': 'Dramatic',
   'Scary': 'Scary',
-  'Mind-Bending': 'Mind-Bending',
+  'Mind-bending': 'Mind-bending',
   'Inspiring': 'Inspiring',
   'Intense': 'Intense',
-  'Mesmerizing': 'Mesmerizing',
+  'Captivating': 'Captivating',
   'Nostalgic': 'Nostalgic',
-  'Easy Watch': 'Easy Watch',
+  'Chill': 'Chill',
   'Tearjerker': 'Tearjerker',
   'Motivational': 'Motivational',
   'Late Night': 'Late Night',

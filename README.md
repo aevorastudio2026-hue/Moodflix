@@ -19,7 +19,7 @@
 
 ### ✨ Temel Özellikler
 
-- 🎭 **Mood Tabanlı Keşif**: 8 farklı ruh hali (Heyecanlı, Eğlenceli, Dramatik, Korkutucu, Zihin Bükücü, İlham Verici, Yoğun, Büyüleyici)
+- 🎭 **Mood Tabanlı Keşif**: 15 farklı ruh hali (Exciting, Fun, Dramatic, Scary, Mind-bending, Inspiring, Intense, Captivating, Nostalgic, Chill, Tearjerker, Motivational, Late Night, Suspenseful, Epic)
 - 🔍 **Gelişmiş Arama**: Film adı, tür, açıklama ve ruha göre filtreleme
 - ❤️ **Favori Sistemi**: JWT korumalı, kullanıcıya özel favori listesi
 - 🔐 **Güvenli Kimlik Doğrulama**: bcryptjs şifreleme + JWT token (7 gün)
@@ -182,10 +182,10 @@ Content-Type: application/json
 GET /api/movies
 
 # Mood filtresi + arama
-GET /api/movies?mood=Heyecanlı&search=Dark&page=1&limit=12
+GET /api/movies?mood=Exciting&search=Dark&page=1&limit=12
 
 # Ruha göre öneri (en yüksek puanlı 10 film)
-GET /api/movies/recommend/mood?mood=Eğlenceli&limit=10
+GET /api/movies/recommend/mood?mood=Fun&limit=10
 ```
 
 #### Response (Movies List)
@@ -196,7 +196,7 @@ GET /api/movies/recommend/mood?mood=Eğlenceli&limit=10
       "id": "uuid",
       "title": "The Dark Knight",
       "genre": "Action",
-      "mood": "Heyecanlı",
+      "mood": "Exciting",
       "rating": 9.0,
       "releaseYear": 2008,
       "description": "...",
