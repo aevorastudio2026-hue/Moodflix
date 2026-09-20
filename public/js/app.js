@@ -88,6 +88,52 @@ const ENGLISH_MOOD_MAP = {
 // Default fallback poster URL
 const DEFAULT_POSTER = 'https://placehold.co/500x750?text=No+Poster';
 
+// Turkish to English mood migration map (for legacy data)
+const TURKISH_TO_ENGLISH_MOOD_MIGRATION = {
+  'Heyecanlı': 'Exciting',
+  'Eğlenceli': 'Fun',
+  'Dramatik': 'Dramatic',
+  'Korkutucu': 'Scary',
+  'Zihin Bükücü': 'Mind-bending',
+  'İlham Verici': 'Inspiring',
+  'Yoğun': 'Intense',
+  'Büyüleyici': 'Captivating',
+  'Nostaljik': 'Nostalgic',
+  'Kafa Boşaltmalık': 'Chill',
+  'Ağlatmalık': 'Tearjerker',
+  'Motivasyon': 'Motivational',
+  'Gece Yarısı': 'Late Night',
+  'Gerilimli': 'Suspenseful',
+  'Epik': 'Epic'
+};
+
+function migrateMoodNames(moods) {
+  if (!Array.isArray(moods)) return moods;
+  let migrated = false;
+  const newMoods = moods.map(mood => {
+    const migratedMood = TURKISH_TO_ENGLISH_MOOD_MIGRATION[mood];
+    if (migratedMood && migratedMood !== mood) {
+      migrated = true;
+      return migratedMood;
+    }
+    return mood;
+  });
+  return { moods: newMoods, migrated };
+}
+
+function migrateUserPreferences(prefs) {
+  let anyMigrated = false;
+  const moodKeys = ['likedMoods', 'dislikedMoods'];
+  for (const key of moodKeys) {
+    const result = migrateMoodNames(prefs[key]);
+    if (result.migrated) {
+      prefs[key] = result.moods;
+      anyMigrated = true;
+    }
+  }
+  return anyMigrated;
+}
+
 
 // Mock movie data for fallback when API fails
 const MOCK_MOVIES = [
@@ -1350,11 +1396,44 @@ async function loadUserPreferences() {
         likedKeywords: data.data.likedKeywords || [],
         dislikedKeywords: data.data.dislikedKeywords || [],
       };
+      
+      // Migrate legacy Turkish mood names to English
+      const migrated = migrateUserPreferences(userPreferences);
+      if (migrated) {
+        console.log('[loadUserPreferences] Migrated legacy Turkish mood names to English');
+        // Save migrated preferences back to server
+        await saveMigratedPreferences();
+      }
+      
       renderPreferenceChips();
     }
   } catch (err) {
     console.error('[loadUserPreferences] Error:', err);
     showPreferencesError('Failed to load preferences: ' + err.message);
+  }
+}
+
+async function saveMigratedPreferences() {
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    const res = await fetch(`${API_BASE}/preferences`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken}`
+      },
+      body: JSON.stringify(userPreferences),
+      signal: controller.signal
+    });
+    clearTimeout(timeoutId);
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.message || 'Migrate save failed');
+    }
+    console.log('[saveMigratedPreferences] Successfully saved migrated preferences');
+  } catch (err) {
+    console.error('[saveMigratedPreferences] Error:', err);
   }
 }
 
