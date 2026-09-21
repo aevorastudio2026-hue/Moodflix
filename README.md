@@ -1,11 +1,11 @@
-# MoodFlix 🎬
+# Sensoria 🎬
 
 > **Ruh haline göre sinematik film keşfi** — Koyu temalı, modern ve duyarlı bir film öneri platformu.
 
-**MoodFlix is an Aevora project.**  
+**Sensoria is an Aevora project.**  
 **Aevora — Where ideas evolve.**
 
-![MoodFlix Preview](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
+![Sensoria Preview](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
 ![Node.js](https://img.shields.io/badge/Node.js-18+-green)
 ![Express](https://img.shields.io/badge/Express-5.x-lightgrey)
 ![Prisma](https://img.shields.io/badge/Prisma-5.22-blue)
@@ -15,7 +15,7 @@
 
 ## 📖 Proje Tanımı
 
-**MoodFlix**, kullanıcıların o anki ruh hallerine (mood) göre film önerileri sunan, modern bir full-stack web uygulamasıdır. Sinematik bir kullanıcı deneyimi için **Glassmorphism** tasarım dili, **neon mor/kırmızı** aksanlar ve **koyu tema** (Dark Mode) kullanılmıştır.
+**Sensoria**, kullanıcıların o anki ruh hallerine (mood) göre film önerileri sunan, modern bir full-stack web uygulamasıdır. Sinematik bir kullanıcı deneyimi için **Glassmorphism** tasarım dili, **neon mor/kırmızı** aksanlar ve **koyu tema** (Dark Mode) kullanılmıştır.
 
 ### ✨ Temel Özellikler
 
@@ -370,13 +370,13 @@ MIT License — Serbest kullanım, değiştirme ve dağıtım.
 
 ## 🏢 Marka
 
-**MoodFlix is an Aevora project.**  
+**Sensoria is an Aevora project.**  
 **Aevora — Where ideas evolve.**
 
 ---
 
 ## 📞 İletişim
 
-**MoodFlix Team** — Ruh haline göre sinematik keşif.
+**Sensoria Team** — Ruh haline göre sinematik keşif.
 
 > *"Film izlemek bir huy değil, bir ruh hali."*

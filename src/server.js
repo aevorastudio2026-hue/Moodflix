@@ -53,5 +53,5 @@ app.get('/health', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`MoodFlix server running on port ${PORT}`);
+  console.log(`Sensoria server running on port ${PORT}`);
 });
